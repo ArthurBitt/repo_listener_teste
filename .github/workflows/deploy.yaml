@@ -2,7 +2,7 @@ name: Listener Deploy WebApp
 
 on:
   repository_dispatch:
-    types: frontend-autovist-deploy
+    types: test
 
 jobs:
   deploy:
