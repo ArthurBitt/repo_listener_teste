@@ -1,0 +1,24 @@
+name: Listener Deploy WebApp
+
+on:
+  repository_dispatch:
+    types: frontend-autovist-deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Clonar o repositório de código
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.client_payload.repo }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # preciso mandar isso para >> $GITHUB_ENV ?
+          ref: ${{ github.event.client_payload.branch }}
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: 📦 Instalar dependências com Yarn
+        run: yarn install
